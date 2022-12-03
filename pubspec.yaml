@@ -39,7 +39,9 @@ dependencies:
   sqflite: ^2.2.1
   fluttertoast: ^8.1.1
   intl: ^0.17.0
-
+  flutter_bloc: ^8.1.1
+  bloc:
+  conditional_builder_null_safety:
 dev_dependencies:
   flutter_test:
     sdk: flutter
