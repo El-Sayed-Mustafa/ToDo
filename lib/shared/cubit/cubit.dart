@@ -24,6 +24,7 @@ class AppCubit extends Cubit<AppStates> {
     const ArchivedTasksScreen()
   ];
   IconData fabIcon = Icons.edit;
+  IconData checkBox = Icons.check_box_outline_blank;
   bool isButtonSheetShown = false;
   List<String> titles = [
     'New Tasks',
@@ -34,6 +35,13 @@ class AppCubit extends Cubit<AppStates> {
   void changeIndex(int index) {
     currentIndex = index;
     emit(AppChangeNavBarState());
+  }
+
+  IconData changeCheckBox({
+    required IconData icon,
+  }) {
+    emit(AppChangeCheckBox());
+    return checkBox = icon;
   }
 
   late Database database;
@@ -114,10 +122,7 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   void deleteData({required int id}) async {
-    database.rawDelete(
-        'DELETE FROM tasks WHERE id = ?',
-        [id]
-    ).then((value) {
+    database.rawDelete('DELETE FROM tasks WHERE id = ?', [id]).then((value) {
       getDataFromDatabase(database);
       emit(AppDeleteDatabaseState());
     });

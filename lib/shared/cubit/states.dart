@@ -4,6 +4,8 @@ class AppInitialState extends AppStates{}
 
 class AppChangeNavBarState extends AppStates{}
 
+class AppChangeCheckBox extends AppStates{}
+
 class AppLoadingState extends AppStates{}
 
 class AppCreateDatabaseState extends AppStates{}
