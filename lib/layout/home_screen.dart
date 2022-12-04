@@ -25,9 +25,15 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => AppCubit()..createDatabase(),
+      create: (BuildContext context) =>
+      AppCubit()
+        ..createDatabase(),
       child: BlocConsumer<AppCubit, AppStates>(
-        listener: (BuildContext context, AppStates state) {},
+        listener: (BuildContext context, AppStates state) {
+          if(state is AppInsertDatabaseState) {
+            Navigator.pop(context);
+          }
+        },
         builder: (BuildContext context, AppStates state) {
           AppCubit cubit = AppCubit.get(context);
           return Scaffold(
@@ -36,17 +42,19 @@ class HomeScreen extends StatelessWidget {
               title: Text(cubit.titles[cubit.currentIndex]),
             ),
             body: ConditionalBuilder(
-              condition: true,
+              condition: state is! AppLoadingState,
               builder: (context) => cubit.screens[cubit.currentIndex],
               fallback: (context) =>
-                  const Center(child: CircularProgressIndicator()),
+              const Center(child: CircularProgressIndicator()),
             ),
             floatingActionButton: FloatingActionButton(
                 child: Icon(cubit.fabIcon),
                 onPressed: () {
                   if (cubit.isButtonSheetShown) {
                     if (formKey.currentState?.validate() == true) {
-
+                      cubit.insertToDatabase(title: titleController.text,
+                          time: timeController.text,
+                          date: dateController.text);
                       /*insertToDatabase(
                         title: titleController.text,
                         date: dateController.text,
@@ -58,7 +66,8 @@ class HomeScreen extends StatelessWidget {
                   } else {
                     scaffoldkey.currentState
                         ?.showBottomSheet(
-                          (context) => Container(
+                          (context) =>
+                          Container(
                             decoration: BoxDecoration(
                                 color: Colors.grey[200],
                                 borderRadius: const BorderRadius.only(
@@ -93,8 +102,8 @@ class HomeScreen extends StatelessWidget {
                                       type: TextInputType.datetime,
                                       onTap: () {
                                         showTimePicker(
-                                                context: context,
-                                                initialTime: TimeOfDay.now())
+                                            context: context,
+                                            initialTime: TimeOfDay.now())
                                             .then((value) {
                                           timeController.text =
                                               value!.format(context).toString();
@@ -119,7 +128,7 @@ class HomeScreen extends StatelessWidget {
                                           initialDate: DateTime.now(),
                                           firstDate: DateTime.now(),
                                           lastDate:
-                                              DateTime.parse('2050-12-02'),
+                                          DateTime.parse('2050-12-02'),
                                         ).then((value) {
                                           dateController.text =
                                               DateFormat.yMMMd()
@@ -143,13 +152,13 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                        )
+                    )
                         .closed
                         .then((value) {
-                    cubit.changeBottomSheet(isShow: false, icon: Icons.edit);
+                      cubit.changeBottomSheet(isShow: false, icon: Icons.edit);
                     });
 
-                      cubit.changeBottomSheet(isShow: true, icon: Icons.add);
+                    cubit.changeBottomSheet(isShow: true, icon: Icons.add);
                   }
                 }),
             bottomNavigationBar: BottomNavigationBar(
