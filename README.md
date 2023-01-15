@@ -1,6 +1,26 @@
-# ToDo
-
-Using Sqflite and Bloc State Mangement 
+<h1>ToDo</h1>
+<p>This is a ToDo application built using Flutter, Dart, Sqflite and Bloc state management. The application allows users to create, edit and delete tasks. The tasks are stored in a local Sqflite database and the application uses Bloc state management to manage the state of the application. </p>
+<h2>Getting Started</h2>
+<p>To get started with this project, you will need to have a basic understanding of Flutter, Dart, Sqflite and Bloc state management, as well as experience with building mobile apps.</p>
+<h2>Prerequisites</h2>
+<ul>
+    <li>Flutter SDK</li>
+    <li>Dart</li>
+    <li>Sqflite</li>
+    <li>Bloc state management</li>
+</ul>
+<h2>Installing</h2>
+<ol>
+    <li>Clone the repository to your local machine using the following command:
+<pre>
+git clone https://github.com/<e-sayed-mustafa>/ToDo.git
+</pre>
+    </li>
+    <li>Open the project in your preferred code editor</li>
+    <li>Run the application on an emulator or a physical device using a command terminal</li>
+</ol>
+<h2>Design</h2>
+<p>The application has a simple and user-friendly interface, with a list of tasks that can
 
 
 
